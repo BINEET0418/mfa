@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Scan This QR with Your Mobile App</h2>
+  <img id="qr" alt="Loading...">
+  <script>
+    let deviceId = localStorage.getItem('mfa_device_id') || crypto.randomUUID();
+    localStorage.setItem('mfa_device_id', deviceId);
+    fetch(`/api/qr/generate`,{credentials:'include'})
+      .then(r=>r.blob()).then(b=>document.getElementById('qr').src = URL.createObjectURL(b));
+  </script>
+</body>
+</html>
